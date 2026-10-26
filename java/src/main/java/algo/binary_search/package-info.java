@@ -1,0 +1,4 @@
+/**
+ * binary_search 相关题目。
+ */
+package algo.binary_search;

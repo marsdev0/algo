@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 .venv/
 
+# Java / Maven
+target/
+
 # IDE
 .idea/
 .vscode/
