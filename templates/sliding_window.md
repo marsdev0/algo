@@ -11,7 +11,7 @@
 
 以上三步适用于所有定长滑动窗口题目，由于是定长，因此不需要收缩窗口，只需要当符合窗口大小时，不断更新数据，然后出窗口。
 
-## Java 模板
+### Java 模板
 
 ```java
 public int fixedWindow(int[] nums, int k) {
@@ -35,10 +35,9 @@ public int fixedWindow(int[] nums, int k) {
     }
     return result;
 }
-```
+```   
 
-
-## Python 模板
+### Python 模板
 
 ```python
 def fixed_window(nums: list[int], k: int) -> int:
@@ -62,6 +61,83 @@ def fixed_window(nums: list[int], k: int) -> int:
     return result
 ```
 
+## 不定长滑窗         
+主要在于什么时候收缩窗口   
+- 求最大、最长，例如：元素之和小于 `target` 的最大长度
+- 求最小、最短，例如：元素之和大于 `target` 的最小长度
+
+### Java 模板     
+```java  
+// 求最大
+public int longestWindow(int[] nums, int target) {
+    int sum = 0;
+    int left = 0;
+    int maxLen = 0;
+    
+    for (int right = 0; right < nums.length; right++) {
+        sum += nums[right];
+        while (sum >= target) {
+            sum -= nums[left];
+            left++;
+        }
+        maxLen = Math.max(maxLen, right - left + 1);
+    }
+    return maxLen;
+}
+
+// 求最小
+public shortestWindow(int[] nums, int target) {
+    int sum = 0;
+    int left = 0;
+    int minLen = 0x3f3f3f3f;
+    
+    for (int right = 0; right < nums.length; right++) {
+        sum += nums[right];
+        while (sum >= target) {
+            minLen = Math.min(minLen, right - left + 1);
+            sum -= nums[left];
+            left++;
+        }
+    }
+    return minLen == 0x3f3f3f3f ? -1 : minLen;
+}
+```     
+
+### Python 模板   
+```python  
+# 求最大
+def longest_window(nums: list[int], target: int) -> int:
+    total = 0
+    left = 0
+    max_len = 0
+    
+    for right in range(len(nums)):
+        total += nums[right]
+
+        while total >= target:
+            total -= nums[left]
+            left += 1
+
+        max_len = max(max_len, right - left + 1)
+
+    return max_len
+
+# 求最小   
+def shortest_window(nums: list[int], target: int) -> int:
+    total = 0
+    left = 0
+    min_len = 0x3f3f3f3f
+
+    for right in range(len(nums)):
+        total += nums[right]
+
+        while total >= target:
+            min_len = min(min_len, right - left + 1)
+            total -= nums[left]
+            left += 1
+    
+    return min_len if min_len != 0x3f3f3f3f else -1   
+```   
 
 
 ## 易错点
